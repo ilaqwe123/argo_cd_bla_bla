@@ -158,7 +158,7 @@ spec:
             protocol: TCP
         env:
           - name: PGADMIN_DEFAULT_EMAIL
-            value: "artur@ilia.biz"
+            value: "ilia"
           - name: PGADMIN_DEFAULT_PASSWORD
             value: "password"
         resources:
