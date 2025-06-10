@@ -8,7 +8,7 @@ metadata:
     #kubernetes.io/ingress.class: "system-ingress"
     nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    cert-manager.io/cluster-issuer: "cluster-issuer"
+    cert-manager.io/cluster-issuer: "dev-ca-issuer"
     # Включение stiky sessions - по идее необходимо для кластера.
     nginx.ingress.kubernetes.io/affinity: "cookie"
     nginx.ingress.kubernetes.io/session-cookie-name: "kkstiky"
