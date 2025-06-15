@@ -166,13 +166,13 @@ spec:
               value: "keycloak.ilia.local"
 
             - name: KC_HOSTNAME_STRICT
-              value: "false"
+              value: "true"
               
             - name: KC_HOSTNAME_STRICT_HTTPS
               value: "true"
 
             - name: KC_HTTP_ENABLED
-              value: "true"
+              value: "false"
               
             - name: KUBERNETES_NAMESPACE
               valueFrom:
