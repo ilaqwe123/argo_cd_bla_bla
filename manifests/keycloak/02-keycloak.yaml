@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/name: kk
     app.kubernetes.io/instance: kk
-    app.kubernetes.io/version: "24.0.2"
+    app.kubernetes.io/version: "26.2.0"
 data:
   keycloak.cli: |
     embed-server --server-config=standalone-ha.xml --std-out=echo
@@ -45,7 +45,7 @@ metadata:
   labels:
     app.kubernetes.io/name: kk
     app.kubernetes.io/instance: kk
-    app.kubernetes.io/version: "24.0.2"
+    app.kubernetes.io/version: "26.2.0"
     app.kubernetes.io/component: http
 spec:
   type: ClusterIP
@@ -73,7 +73,7 @@ metadata:
   labels:
     app.kubernetes.io/name: kk
     app.kubernetes.io/instance: kk
-    app.kubernetes.io/version: "24.0.2"
+    app.kubernetes.io/version: "26.2.0"
 spec:
   selector:
     matchLabels:
@@ -98,20 +98,13 @@ spec:
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
-          image: "quay.io/keycloak/keycloak:24.0.2"
+          image: "quay.io/keycloak/keycloak:26.2.0"
           imagePullPolicy: IfNotPresent
-          command:
-            []
-          args:
-            []
+          command: ["/opt/keycloak/bin/kc.sh"]
+          args: ["start", "--profile=ha"]
           env:
             - name: JAVA_OPTS_APPEND
-              value: >-
-                -server
-                -Xms1024m
-                -Xmx2048m
-                -XX:MetaspaceSize=192M
-                -XX:MaxMetaspaceSize=512m
+              value: "-Xms1024m -Xmx2048m -XX:MetaspaceSize=192M -XX:MaxMetaspaceSize=512m"
             - name: DB_VENDOR
               value: postgres
             - name: DB_ADDR
