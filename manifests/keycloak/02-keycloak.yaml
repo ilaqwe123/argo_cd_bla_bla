@@ -101,18 +101,19 @@ spec:
           image: "quay.io/keycloak/keycloak:26.2.0"
           imagePullPolicy: IfNotPresent
           command: ["/opt/keycloak/bin/kc.sh"]
-          args: ["start", "--profile=ha"]
+          args: ["start", "--optimized"]
           env:
             - name: JAVA_OPTS_APPEND
               value: "-Xms1024m -Xmx2048m -XX:MetaspaceSize=192M -XX:MaxMetaspaceSize=512m"
-            - name: DB_VENDOR
+              
+            - name: KC_PROFILE
+              value: ha
+              
+            - name: KC_DB
               value: postgres
-            - name: DB_ADDR
-              value: postgres-np.psql.svc
-            - name: DB_PORT
-              value: "5432"
-            - name: DB_DATABASE
-              value: keycloak
+            - name: KC_DB_URL
+              value: jdbc:postgresql://postgres-np.psql.svc:5432/keycloak
+              
             - name: DB_USER_FILE
               value: /secrets/creds/db-user
             - name: DB_PASSWORD_FILE
@@ -123,6 +124,23 @@ spec:
               value: /secrets/creds/admin-password
             - name: JGROUPS_DISCOVERY_PROTOCOL
               value: dns.DNS_PING
+
+            - name: KC_CACHE
+              value: ha
+            - name: KC_CACHE_OWNERS_COUNT
+              value: "2"
+            - name: JGROUPS_DISCOVERY_PROTOCOL
+              value: dns.DNS_PING
+            - name: JGROUPS_DISCOVERY_PROPERTIES
+              value: 'dns_query=kk-headless.keycloak.svc.cluster.local'
+
+            - name: KC_HOSTNAME
+              value: keycloak.ilia.local
+            - name: KC_HTTP_RELATIVE_PATH
+              value: /iam/auth
+            - name: KC_PROXY
+              value: edge
+              
             - name: KUBERNETES_NAMESPACE
               valueFrom:
                 fieldRef:
