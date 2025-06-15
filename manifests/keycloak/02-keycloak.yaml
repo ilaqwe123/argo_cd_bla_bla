@@ -101,7 +101,17 @@ spec:
           image: "quay.io/keycloak/keycloak:26.2.0"
           imagePullPolicy: IfNotPresent
           command: ["/opt/keycloak/bin/kc.sh"]
-          args: ["start", "--optimized"]
+          args:
+            - |
+              # Выполняем сборку при первом запуске
+              if [ ! -f /opt/keycloak/data/.built ]; then
+                /opt/keycloak/bin/kc.sh build --profile=ha
+                touch /opt/keycloak/data/.built
+              fi
+              
+              # Запускаем оптимизированный сервер
+              /opt/keycloak/bin/kc.sh start --optimized
+              
           env:
             - name: JAVA_OPTS_APPEND
               value: "-Xms1024m -Xmx2048m -XX:MetaspaceSize=192M -XX:MaxMetaspaceSize=512m"
