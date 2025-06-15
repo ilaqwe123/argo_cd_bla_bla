@@ -105,18 +105,17 @@ spec:
             - "-c"
           args:
             - |
-              # Проверяем наличие оптимизированной сборки
+              # Сборка сервера (без --profile)
               if [ ! -f /opt/keycloak/data/.built ]; then
                 echo "Building Keycloak server..."
-                /opt/keycloak/bin/kc.sh build --profile=ha
+                /opt/keycloak/bin/kc.sh build
                 touch /opt/keycloak/data/.built
-                echo "Build completed. Starting server..."
-              else
-                echo "Using existing optimized build"
+                echo "Build completed."
               fi
               
-              # Запускаем сервер
-              /opt/keycloak/bin/kc.sh start --optimized
+              # Запуск сервера с профилем HA
+              echo "Starting Keycloak server..."
+              /opt/keycloak/bin/kc.sh start --profile=ha
               
           env:
             - name: JAVA_OPTS_APPEND
