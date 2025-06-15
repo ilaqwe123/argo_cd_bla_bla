@@ -208,14 +208,12 @@ spec:
           livenessProbe:
             httpGet:
               path: /iam/auth/
-              path: /health
               port: http
             initialDelaySeconds: 0
             timeoutSeconds: 5
           readinessProbe:
             httpGet:
               path: /
-              path: /health/ready
               port: httpAdd commentMore actions
             initialDelaySeconds: 30
             timeoutSeconds: 1
