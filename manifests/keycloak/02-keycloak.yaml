@@ -170,9 +170,6 @@ spec:
               
             - name: KC_HOSTNAME_STRICT_HTTPS
               value: "true"
-
-            - name: KC_HTTP_ENABLED
-              value: "false"
               
             - name: KUBERNETES_NAMESPACE
               valueFrom:
