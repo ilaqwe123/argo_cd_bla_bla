@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/name: kk
     app.kubernetes.io/instance: kk
-    app.kubernetes.io/version: "15.0.2"
+    app.kubernetes.io/version: "26.2"
 data:
   keycloak.cli: |
     embed-server --server-config=standalone-ha.xml --std-out=echo
@@ -108,7 +108,7 @@ spec:
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
-          image: "quay.io/keycloak/keycloak:15.0.2"
+          image: "quay.io/keycloak/keycloak:26.2"
           imagePullPolicy: IfNotPresent
           command:
             []
