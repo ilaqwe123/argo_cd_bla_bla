@@ -115,7 +115,7 @@ spec:
               
               # Запуск сервера с профилем HA
               echo "Starting Keycloak server..."
-              /opt/keycloak/bin/kc.sh start --profile=ha
+              /opt/keycloak/bin/kc.sh start
               
           env:
             - name: JAVA_OPTS_APPEND
