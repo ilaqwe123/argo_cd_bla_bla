@@ -114,17 +114,16 @@ spec:
             - name: KC_DB_URL
               value: jdbc:postgresql://postgres-np.psql.svc:5432/keycloak
               
-            - name: DB_USER_FILE
+            - name: KC_DB_USER_FILE
               value: /secrets/creds/db-user
-            - name: DB_PASSWORD_FILE
+            - name: KC_DB_PASSWORD_FILE
               value: /secrets/creds/db-password
-            - name: KEYCLOAK_USER_FILE
-              value: /secrets/creds/admin-user
-            - name: KEYCLOAK_PASSWORD_FILE
-              value: /secrets/creds/admin-password
-            - name: JGROUPS_DISCOVERY_PROTOCOL
-              value: dns.DNS_PING
 
+            - name: KC_ADMIN_FILE
+              value: /secrets/creds/admin-user
+            - name: KC_ADMIN_PASSWORD_FILE
+              value: /secrets/creds/admin-password
+              
             - name: KC_CACHE
               value: ha
             - name: KC_CACHE_OWNERS_COUNT
@@ -146,8 +145,7 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: metadata.namespace
-            - name: JGROUPS_DISCOVERY_PROPERTIES
-              value: 'dns_query=kk-headless'
+                  
             - name: CACHE_OWNERS_COUNT
               value: "2"
             - name: CACHE_OWNERS_AUTH_SESSIONS_COUNT
