@@ -207,7 +207,7 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /iam/auth/
+              path: /
               port: http
             initialDelaySeconds: 0
             timeoutSeconds: 5
