@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/name: kk
     app.kubernetes.io/instance: kk
-    app.kubernetes.io/version: "26.2"
+    app.kubernetes.io/version: "24.0.3"
 data:
   keycloak.cli: |
     embed-server --server-config=standalone-ha.xml --std-out=echo
@@ -34,7 +34,7 @@ metadata:
   labels:
     app.kubernetes.io/name: kk
     app.kubernetes.io/instance: kk
-    app.kubernetes.io/version: "15.0.2"
+    app.kubernetes.io/version: "24.0.3"
     app.kubernetes.io/component: headless
 spec:
   type: ClusterIP
