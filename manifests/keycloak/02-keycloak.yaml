@@ -221,16 +221,6 @@ spec:
             timeoutSeconds: 5
             failureThreshold: 60
             periodSeconds: 5
-          volumes:
-            - name: keycloak-tls
-              secret:
-                secretName: keycloak-tls
-                defaultMode: 0644  # Добавляем права на чтение
-                items:  # Явно указываем файлы
-                  - key: tls.crt
-                    path: tls.crt
-                  - key: tls.key
-                    path: tls.key
           resources:
             limits:
               cpu: "1"
