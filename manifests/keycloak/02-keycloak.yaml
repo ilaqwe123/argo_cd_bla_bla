@@ -177,7 +177,7 @@ spec:
               value: /etc/keycloak-tls/tls.key
             - name: KC_HTTPS_PORT
               value: "8443"
-              
+
             - name: KC_HTTP_ENABLED
               value: "false"
               
@@ -226,7 +226,13 @@ spec:
           volumes:
             - name: keycloak-tls
               secret:
-                secretName: keycloak-tls    
+                secretName: keycloak-tls
+                defaultMode: 0644  # Добавляем права на чтение
+                items:  # Явно указываем файлы
+                  - key: tls.crt
+                    path: tls.crt
+                  - key: tls.key
+                    path: tls.key
           resources:
             limits:
               cpu: "1"
