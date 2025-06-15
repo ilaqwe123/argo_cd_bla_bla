@@ -162,23 +162,14 @@ spec:
             - name: JGROUPS_DISCOVERY_PROPERTIES
               value: 'dns_query=kk-headless.keycloak.svc.cluster.local'
 
-            - name: KC_HOSTNAME_V2
-              value: "frontend:request,backend:fixed"
-            - name: KC_HOSTNAME_V2_FRONTEND_URL
-              value: "http://keycloak.ilia.local/iam/auth"
-            - name: KC_HOSTNAME_V2_BACKEND_URL
-              value: "http://kk-http.keycloak.svc.cluster.local:80/iam/auth"
-            - name: KC_HOSTNAME_V2_ADMIN_URL
-              value: "http://kk-http.keycloak.svc.cluster.local:80/iam/auth/admin"
-            - name: KC_HOSTNAME_V2_PATH
-              value: "/iam/auth"
-            - name: KC_HOSTNAME_V2_STRICT
-              value: "false"
+            - name: KC_HOSTNAME
+              value: "keycloak.ilia.local"
 
             - name: KC_HOSTNAME_STRICT
               value: "false"
+              
             - name: KC_HOSTNAME_STRICT_HTTPS
-              value: "false"
+              value: "true"
 
             - name: KC_HTTP_ENABLED
               value: "true"
