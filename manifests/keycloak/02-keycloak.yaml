@@ -223,7 +223,10 @@ spec:
             timeoutSeconds: 5
             failureThreshold: 60
             periodSeconds: 5
-            
+          volumes:
+            - name: keycloak-tls
+              secret:
+                secretName: keycloak-tls    
           resources:
             limits:
               cpu: "1"
@@ -238,9 +241,6 @@ spec:
               readOnly: true
             - name: creds
               mountPath: /secrets/creds
-              readOnly: true
-            - name: keycloak-tls
-              mountPath: /etc/keycloak-tls
               readOnly: true
       serviceAccountName: default
       securityContext:
