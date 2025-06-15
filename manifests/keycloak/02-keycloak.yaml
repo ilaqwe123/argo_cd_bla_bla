@@ -205,6 +205,21 @@ spec:
             - name: http-management
               containerPort: 9990
               protocol: TCP
+              
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 600  # 10 минут на инициализацию
+            periodSeconds: 10
+          
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 300  # 5 минут на готовность
+            periodSeconds: 5
+            
           resources:
             limits:
               cpu: "1"
