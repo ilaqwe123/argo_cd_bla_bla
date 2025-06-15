@@ -129,15 +129,26 @@ spec:
             - name: KC_DB_URL
               value: jdbc:postgresql://postgres-np.psql.svc:5432/keycloak
               
-            - name: KC_DB_USER_FILE
-              value: /secrets/creds/db-user
-            - name: KC_DB_PASSWORD_FILE
-              value: /secrets/creds/db-password
-
-            - name: KC_ADMIN_FILE
-              value: /secrets/creds/admin-user
-            - name: KC_ADMIN_PASSWORD_FILE
-              value: /secrets/creds/admin-password
+            - name: KC_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-credentials
+                  key: db-user
+            - name: KC_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-credentials
+                  key: db-password
+            - name: KC_ADMIN
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-credentials
+                  key: admin-user
+            - name: KC_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-credentials
+                  key: admin-password
               
             - name: KC_CACHE
               value: ispn
