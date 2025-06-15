@@ -100,16 +100,22 @@ spec:
             runAsUser: 1000
           image: "quay.io/keycloak/keycloak:26.2.0"
           imagePullPolicy: IfNotPresent
-          command: ["/opt/keycloak/bin/kc.sh"]
+          command: 
+            - "/bin/sh"
+            - "-c"
           args:
             - |
-              # Выполняем сборку при первом запуске
+              # Проверяем наличие оптимизированной сборки
               if [ ! -f /opt/keycloak/data/.built ]; then
+                echo "Building Keycloak server..."
                 /opt/keycloak/bin/kc.sh build --profile=ha
                 touch /opt/keycloak/data/.built
+                echo "Build completed. Starting server..."
+              else
+                echo "Using existing optimized build"
               fi
               
-              # Запускаем оптимизированный сервер
+              # Запускаем сервер
               /opt/keycloak/bin/kc.sh start --optimized
               
           env:
@@ -180,13 +186,13 @@ spec:
             timeoutSeconds: 5
           readinessProbe:
             httpGet:
-              path: /iam/auth/
+              path: /
               port: http
             initialDelaySeconds: 30
             timeoutSeconds: 1
           startupProbe:
             httpGet:
-              path: /iam/auth/
+              path: /
               port: http
             initialDelaySeconds: 45
             timeoutSeconds: 5
