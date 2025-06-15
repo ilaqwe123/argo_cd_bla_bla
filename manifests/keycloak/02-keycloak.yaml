@@ -154,6 +154,9 @@ spec:
               value: /iam/auth
             - name: KC_PROXY
               value: edge
+
+            - name: KC_HTTP_ENABLED
+              value: "true"
               
             - name: KUBERNETES_NAMESPACE
               valueFrom:
