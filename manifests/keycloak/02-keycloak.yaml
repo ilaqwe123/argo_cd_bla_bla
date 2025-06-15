@@ -205,14 +205,6 @@ spec:
             - name: http-management
               containerPort: 9990
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /health/ready
-              port: http
           resources:
             limits:
               cpu: "1"
