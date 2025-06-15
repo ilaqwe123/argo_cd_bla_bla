@@ -11,19 +11,9 @@ data:
   keycloak.cli: |
     embed-server --server-config=standalone-ha.xml --std-out=echo
     batch
-    echo Configuring node identifier
     /subsystem=keycloak-server/:write-attribute(name=web-context,value=iam/auth)
-    # Allow log level to be configured via environment variable
-    /subsystem=logging/console-handler=CONSOLE:write-attribute(name=level, value=${env.WILDFLY_LOGLEVEL:INFO})
-    /subsystem=logging/root-logger=ROOT:write-attribute(name=level, value=${env.WILDFLY_LOGLEVEL:INFO})
-    # Configure datasource to connection before use
     /subsystem=datasources/data-source=KeycloakDS/:write-attribute(name=validate-on-match,value=${env.DB_VALIDATE_ON_MATCH:true})
-    # Configure datasource to try all other connections before failing
     /subsystem=datasources/data-source=KeycloakDS/:write-attribute(name=use-fast-fail,value=${env.DB_USE_CAST_FAIL:false})
-    # Json log format
-    /subsystem=logging/json-formatter=json:add(exception-output-type=formatted, pretty-print=false, meta-data={label=value})
-    /subsystem=logging/console-handler=CONSOLE:write-attribute(name=named-formatter, value=json)
-    echo Finished configuring node identifier
     run-batch
     stop-embedded-server
 ---
@@ -55,7 +45,7 @@ metadata:
   labels:
     app.kubernetes.io/name: kk
     app.kubernetes.io/instance: kk
-    app.kubernetes.io/version: "15.0.2"
+    app.kubernetes.io/version: "24.0.2"
     app.kubernetes.io/component: http
 spec:
   type: ClusterIP
@@ -108,23 +98,20 @@ spec:
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
-          image: "quay.io/keycloak/keycloak:26.2"
+          image: "quay.io/keycloak/keycloak:24.0.2"
           imagePullPolicy: IfNotPresent
           command:
             []
           args:
             []
           env:
-            - name: JAVA_OPTS
+            - name: JAVA_OPTS_APPEND
               value: >-
                 -server
                 -Xms1024m
                 -Xmx2048m
                 -XX:MetaspaceSize=192M
                 -XX:MaxMetaspaceSize=512m
-                -Djava.net.preferIPv4Stack=true
-                -Djboss.modules.system.pkgs=org.jboss.byteman
-                -Djava.awt.headless=true
             - name: DB_VENDOR
               value: postgres
             - name: DB_ADDR
@@ -174,7 +161,7 @@ spec:
             timeoutSeconds: 5
           readinessProbe:
             httpGet:
-              path: /iam/auth/realms/master
+              path: /iam/auth/
               port: http
             initialDelaySeconds: 30
             timeoutSeconds: 1
