@@ -18,7 +18,7 @@ spec:
     - backendRefs:
         - kind: Service
           name: harbor
-          port: 8080
+          port: 80
       matches:
         - path:
             type: PathPrefix
